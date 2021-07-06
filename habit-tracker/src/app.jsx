@@ -13,25 +13,32 @@ class App extends Component {
   };
 
   handleIncrement = (habit) => {
-    console.log(`handleIncrement ${habit.name}`);
+    console.log(`hadleIncrement ${habit.name}`);
     const habits = [...this.state.habits];
     const index = habits.indexOf(habit);
     habits[index].count++;
     this.setState({ habits });
+    // 키와 값이 같은 경우에는 하나만 작성 가능
   };
 
   handleDecrement = (habit) => {
-    console.log(`handleDecrement ${habit.name}`);
+    console.log(`hadleDecrement ${habit.name}`);
     const habits = [...this.state.habits];
     const index = habits.indexOf(habit);
     const count = habits[index].count - 1;
     habits[index].count = count < 0 ? 0 : count;
     this.setState({ habits });
+    // 키와 값이 같은 경우에는 하나만 작성 가능
   };
 
   handleDelete = (habit) => {
-    console.log(`handleDelete ${habit.name}`);
+    //console.log(`handleDelete ${habit.name}`);
     const habits = this.state.habits.filter((item) => item.id !== habit.id);
+    this.setState({ habits });
+  };
+
+  handleAdd = (name) => {
+    const habits = [...this.state.habits, { id: Date.now(), name, count: 0 }];
     this.setState({ habits });
   };
 
@@ -46,6 +53,7 @@ class App extends Component {
           onIncrement={this.handleIncrement}
           onDecrement={this.handleDecrement}
           onDelete={this.handleDelete}
+          onAdd={this.handleAdd}
         />
       </>
     );
