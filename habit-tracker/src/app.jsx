@@ -13,22 +13,25 @@ class App extends Component {
   };
 
   handleIncrement = (habit) => {
-    console.log(`hadleIncrement ${habit.name}`);
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    habits[index].count++;
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id) {
+        return { ...habit, count: habit.count + 1 };
+      }
+      return item;
+    });
     this.setState({ habits });
     // 키와 값이 같은 경우에는 하나만 작성 가능
   };
 
   handleDecrement = (habit) => {
-    console.log(`hadleDecrement ${habit.name}`);
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    const count = habits[index].count - 1;
-    habits[index].count = count < 0 ? 0 : count;
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id) {
+        const count = habit.count - 1;
+        return { ...habit, count: count < 0 ? 0 : count };
+      }
+      return item;
+    });
     this.setState({ habits });
-    // 키와 값이 같은 경우에는 하나만 작성 가능
   };
 
   handleDelete = (habit) => {
@@ -42,15 +45,18 @@ class App extends Component {
     this.setState({ habits });
   };
 
-  hadleReset = () => {
+  handleReset = () => {
     const habits = this.state.habits.map((habit) => {
-      habit.count = 0;
+      if (habit.count !== 0) {
+        return { ...habit, count: 0 };
+      }
       return habit;
     });
     this.setState({ habits });
   };
 
   render() {
+    console.log('app');
     return (
       <>
         <Navbar
@@ -62,7 +68,7 @@ class App extends Component {
           onDecrement={this.handleDecrement}
           onDelete={this.handleDelete}
           onAdd={this.handleAdd}
-          onReset={this.hadleReset}
+          onReset={this.handleReset}
         />
       </>
     );
