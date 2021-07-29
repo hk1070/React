@@ -1,2 +1,2 @@
-# React
- React 강의를 듣고 공부한 코드들을 올리는 저장소 입니다.
+# Habit Tracker
+ React 강의를 듣고 만든 Habit Tracker 입니다.
